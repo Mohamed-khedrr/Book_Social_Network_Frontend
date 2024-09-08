@@ -1,3 +1,47 @@
-<p>
-  register works!
-</p>
+<div class="login-container">
+  <div class="container-fluid card login-card py-3 justify-content-around">
+    <h3 class="text-center"> Registeration Page </h3>
+    @if (errMsg) {
+    <p class="errors-container alert alert-danger" role="alert">
+      {{errMsg}}
+    </p>
+    }
+    @if (this.registerForm.touched && this.registerForm.invalid ) {
+    <p class="errors-container alert alert-danger" role="alert">
+      Complete your data
+    </p>
+    }
+
+    <form [formGroup]="registerForm" (ngSubmit)="registerNewAccount()">
+
+      <div class="mb3">
+        <label for="firstName" class="form-label">First Name</label>
+        <input type="text" class="form-control" formControlName="firstName" id="firstName">
+      </div>
+      <div class="mb3">
+        <label for="lastName" class="form-label">First Name</label>
+        <input type="text" class="form-control" formControlName="lastName" id="lastName">
+      </div>
+
+      <div class="mb3">
+        <label for="login" class="form-label">Email address</label>
+        <input type="email" class="form-control" formControlName="email" id="login">
+      </div>
+
+      <div class="mb3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" formControlName="password" id="password">
+      </div>
+
+      <div class="buttons d-flex justify-content-between mt-4">
+        <button [disabled]="registerForm.invalid" class="btn btn-primary px-4" type="submit">Register</button>
+        <div>
+          <span>Already have an account </span>
+          <button (click)="toLoginPage()" class="btn btn-link" type="button">login</button>
+        </div>
+      </div>
+    </form>
+
+
+  </div>
+</div>

@@ -1,29 +1,38 @@
-<div class="container-fluid card login-container py-3">
-  <h3 class="text-center"> </h3>
-  @if (errMsg.length) {
-  <div class="errors-container alert alert-danger" role="alert">
-    @for (err of errMsg; track $index) {
-    <p>{{err}}</p>
+<div class="login-container">
+  <div class="container-fluid card login-card py-3 justify-content-around">
+    <h3 class="text-center mb-4"> Login Page </h3>
+    @if (errMsg) {
+    <p class="errors-container alert alert-danger" role="alert">
+      {{errMsg}}
+    </p>
     }
-  </div>
-  }
-  <div class="mb3">
-    <label for="login" class="form-label">Email address</label>
-    <input type="email" [(ngModel)]="authRequest.email" class="form-control" id="login">
-  </div>
+    @if (this.loginForm.controls.email.invalid && loginForm.controls.email.touched ||
+    loginForm.controls.password.invalid && loginForm.controls.password.touched ) {
+    <p class="errors-container alert alert-danger" role="alert">
+      Email and Password are required
+    </p>
+    }
 
-  <div class="mb3">
-    <label for="password" class="form-label">Password</label>
-    <input type="email" [(ngModel)]="authRequest.password" class="form-control" id="password">
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <div class="mb3">
+        <label for="login" class="form-label">Email address</label>
+        <input type="email" class="form-control" formControlName="email" id="login">
+      </div>
+
+      <div class="mb3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" formControlName="password" id="password">
+      </div>
+
+      <div class="buttons d-flex justify-content-between mt-4">
+        <button [disabled]="loginForm.invalid" class="btn btn-primary px-4" type="submit">Login</button>
+        <div>
+          <span>Don't have an account </span>
+          <button (click)="toRegisterPage()" class="btn btn-link" type="button">Register</button>
+        </div>
+      </div>
+    </form>
+
+
   </div>
-
-  <div class="buttons d-flex justify-content-between my-3">
-    <button (click)="login()" class="btn btn-primary" type="button">Login</button>
-    <div>
-      <span>Don't have an account </span>
-      <button (click)="register()" class="btn btn-link" type="button">Register</button>
-    </div>
-  </div>
-
-
 </div>
